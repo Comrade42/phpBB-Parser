@@ -1,0 +1,26 @@
+{
+    "name": "comrade42/phpbb-parser",
+    "description": "PHP parser for phpBB forums (without access to the DB)",
+    "homepage": "https://github.com/Comrade42/phpBB-Parser",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Comrade42",
+            "email": "Comrade42@users.noreply.github.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=5.3.3",
+        "symfony/console": "2.4.*",
+        "doctrine/orm": "2.4.*",
+        "fabpot/goutte": "~1.0",
+        "phpunit/phpunit": "3.7.*"
+    },
+    "autoload": {
+        "psr-0" : {"":"src/"}
+    },
+    "config": {
+        "bin-dir": "bin"
+    }
+}
