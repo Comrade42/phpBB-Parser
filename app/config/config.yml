@@ -1,0 +1,23 @@
+imports:
+    - { resource: parameters.yml }
+
+services:
+    metadata:
+        class:            Doctrine\ORM\Configuration
+        factory_class:    Doctrine\ORM\Tools\Setup
+        factory_method:   createAnnotationMetadataConfiguration
+        arguments:        [ [ %root_path%/src ], true ]
+    doctrine:
+        class:            Doctrine\ORM\EntityManager
+        factory_class:    Doctrine\ORM\EntityManager
+        factory_method:   create
+        arguments:
+            -
+                driver:     %database_driver%
+                host:       %database_host%
+                port:       %database_port%
+                user:       %database_user%
+                password:   %database_pass%
+                dbname:     %database_name%
+                charset:    %database_charset%
+            - @metadata

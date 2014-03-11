@@ -12,15 +12,32 @@
     "minimum-stability": "stable",
     "require": {
         "php": ">=5.3.3",
+        "phpunit/phpunit": "3.7.*",
         "symfony/console": "2.4.*",
+        "symfony/config": "2.4.*",
+        "symfony/yaml": "2.4.*",
+        "symfony/dependency-injection": "2.4.*",
         "doctrine/orm": "2.4.*",
-        "fabpot/goutte": "~1.0",
-        "phpunit/phpunit": "3.7.*"
+        "incenteev/composer-parameter-handler": "~2.0",
+        "fabpot/goutte": "~1.0"
     },
     "autoload": {
         "psr-0" : {"":"src/"}
     },
     "config": {
         "bin-dir": "bin"
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters"
+        ],
+        "post-update-cmd": [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters"
+        ]
+    },
+    "extra": {
+        "incenteev-parameters": {
+            "file": "app/config/parameters.yml"
+        }
     }
 }
