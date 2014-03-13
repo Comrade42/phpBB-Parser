@@ -43,6 +43,14 @@ class Application extends BaseApplication
     }
 
     /**
+     * @return ContainerBuilder
+     */
+    public function getContainer()
+    {
+        return $this->container;
+    }
+
+    /**
      * @return string
      */
     public function getRootPath()
