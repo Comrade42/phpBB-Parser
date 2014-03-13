@@ -6,6 +6,7 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Console\Application as BaseApplication;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Symfony\Component\Finder\Finder;
 
 /**
  * Class Application
@@ -36,6 +37,41 @@ class Application extends BaseApplication
         $loader = new YamlFileLoader($this->container, new FileLocator(array($rootPath . '/app/config')));
         $loader->load('config.yml');
 
+        $this->container->compile();
+
         parent::__construct($name, $version);
+    }
+
+    /**
+     * @return string
+     */
+    public function getRootPath()
+    {
+        return $this->container->getParameter('root_path');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getDefaultCommands()
+    {
+        $commands = parent::getDefaultCommands();
+
+        $finder = new Finder();
+        $finder->files()->name('*Command.php')->in($this->getRootPath() . '/src');
+
+        foreach ($finder as $file)
+        {
+            /** @var \Symfony\Component\Finder\SplFileInfo $file */
+            $namespace = strtr($file->getRelativePath(), '/', '\\');
+            $class = new \ReflectionClass($namespace . '\\' . $file->getBasename('.php'));
+
+            if ($class->isSubclassOf('Comrade42\\PhpBBParser\\Command\\ContainerAwareCommand') && !$class->isAbstract())
+            {
+                $commands[] = $class->newInstance($this->container);
+            }
+        }
+
+        return $commands;
     }
 }

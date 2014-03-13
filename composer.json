@@ -17,6 +17,7 @@
         "symfony/config": "2.4.*",
         "symfony/yaml": "2.4.*",
         "symfony/dependency-injection": "2.4.*",
+        "symfony/finder": "2.4.*",
         "doctrine/orm": "2.4.*",
         "incenteev/composer-parameter-handler": "~2.0",
         "fabpot/goutte": "~1.0"
