@@ -21,3 +21,5 @@ services:
                 dbname:     %database_name%
                 charset:    %database_charset%
             - @metadata
+    bridge:
+        class:    %bridge_class%

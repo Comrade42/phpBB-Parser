@@ -6,3 +6,7 @@ parameters:
     database_pass:      ~
     database_name:      ~
     database_charset:   utf8
+
+    forum_url:          ~
+
+    bridge_class:       Comrade42\PhpBBParser\Bridge\SimpleMachinesBridge
