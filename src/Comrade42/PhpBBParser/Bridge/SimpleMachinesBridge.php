@@ -3,7 +3,9 @@
 namespace Comrade42\PhpBBParser\Bridge;
 
 use Comrade42\PhpBBParser\Entity\EntityInterface;
-use Comrade42\PhpBBParser\Entity\SimpleMachines\Member;
+use Comrade42\PhpBBParser\Entity\SimpleMachines\BoardEntity;
+use Comrade42\PhpBBParser\Entity\SimpleMachines\CategoryEntity;
+use Comrade42\PhpBBParser\Entity\SimpleMachines\MemberEntity;
 use Doctrine\ORM\EntityManager;
 
 /**
@@ -17,17 +19,55 @@ class SimpleMachinesBridge implements BridgeInterface
     /**
      * @param EntityManager $entityManager
      * @param int|null $entityId
-     * @return Member
+     * @return MemberEntity
      */
     public function getMemberEntity(EntityManager $entityManager, $entityId = null)
     {
-        /** @var \Comrade42\PhpBBParser\Entity\SimpleMachines\Member $entity */
-        $entity = $entityManager->find('Comrade42\PhpBBParser\Entity\SimpleMachines\Member', $entityId);
+        /** @var \Comrade42\PhpBBParser\Entity\SimpleMachines\MemberEntity $entity */
+        $entity = $entityManager->find('Comrade42\PhpBBParser\Entity\SimpleMachines\MemberEntity', $entityId);
 
         if (empty($entity))
         {
-            $entity = new Member();
+            $entity = new MemberEntity();
             $entity->idMember = $entityId;
+        }
+
+        return $entity;
+    }
+
+    /**
+     * @param EntityManager $entityManager
+     * @param int|null $entityId
+     * @return CategoryEntity
+     */
+    public function getCategoryEntity(EntityManager $entityManager, $entityId = null)
+    {
+        /** @var \Comrade42\PhpBBParser\Entity\SimpleMachines\CategoryEntity $entity */
+        $entity = $entityManager->find('Comrade42\PhpBBParser\Entity\SimpleMachines\CategoryEntity', $entityId);
+
+        if (empty($entity))
+        {
+            $entity = new CategoryEntity();
+            $entity->idCat = $entityId;
+        }
+
+        return $entity;
+    }
+
+    /**
+     * @param EntityManager $entityManager
+     * @param int|null $entityId
+     * @return BoardEntity
+     */
+    public function getForumEntity(EntityManager $entityManager, $entityId = null)
+    {
+        /** @var \Comrade42\PhpBBParser\Entity\SimpleMachines\BoardEntity $entity */
+        $entity = $entityManager->find('Comrade42\PhpBBParser\Entity\SimpleMachines\BoardEntity', $entityId);
+
+        if (empty($entity))
+        {
+            $entity = new BoardEntity();
+            $entity->idBoard = $entityId;
         }
 
         return $entity;
@@ -41,8 +81,8 @@ class SimpleMachinesBridge implements BridgeInterface
      */
     public function fillMemberEntity(EntityInterface $entity, $nickname, \DateTime $regDate, $avatarUrl)
     {
-        /** @var \Comrade42\PhpBBParser\Entity\SimpleMachines\Member $entity */
-        $this->validateEntityClass($entity);
+        /** @var \Comrade42\PhpBBParser\Entity\SimpleMachines\MemberEntity $entity */
+        $this->validateEntityClass($entity, 'Comrade42\PhpBBParser\Entity\SimpleMachines\MemberEntity');
 
         $entity->memberName     = $nickname;
         $entity->dateRegistered = $regDate->getTimestamp();
@@ -57,27 +97,82 @@ class SimpleMachinesBridge implements BridgeInterface
 
     /**
      * @param EntityInterface $entity
+     * @param string $name
+     * @param int $order
+     */
+    public function fillCategoryEntity(EntityInterface $entity, $name, $order)
+    {
+        /** @var \Comrade42\PhpBBParser\Entity\SimpleMachines\CategoryEntity $entity */
+        $this->validateEntityClass($entity, 'Comrade42\PhpBBParser\Entity\SimpleMachines\CategoryEntity');
+
+        $entity->name       = $name;
+        $entity->catOrder   = $order;
+    }
+
+    /**
+     * @param EntityInterface $entity
+     * @param int $categoryId
+     * @param string $title
+     * @param string $description
+     * @param int $order
+     */
+    public function fillForumEntity(EntityInterface $entity, $categoryId, $title, $description, $order)
+    {
+        /** @var \Comrade42\PhpBBParser\Entity\SimpleMachines\BoardEntity $entity */
+        $this->validateEntityClass($entity, 'Comrade42\PhpBBParser\Entity\SimpleMachines\BoardEntity');
+
+        $entity->idCat          = $categoryId;
+        $entity->name           = $title;
+        $entity->description    = $description;
+        $entity->boardOrder     = $order;
+    }
+
+    /**
+     * @param EntityInterface $entity
      * @return string
      */
     public function getMemberNickname(EntityInterface $entity)
     {
-        /** @var \Comrade42\PhpBBParser\Entity\SimpleMachines\Member $entity */
-        $this->validateEntityClass($entity);
+        /** @var \Comrade42\PhpBBParser\Entity\SimpleMachines\MemberEntity $entity */
+        $this->validateEntityClass($entity, 'Comrade42\PhpBBParser\Entity\SimpleMachines\MemberEntity');
 
         return $entity->memberName;
     }
 
     /**
      * @param EntityInterface $entity
+     * @return string
+     */
+    public function getCategoryName(EntityInterface $entity)
+    {
+        /** @var \Comrade42\PhpBBParser\Entity\SimpleMachines\CategoryEntity $entity */
+        $this->validateEntityClass($entity, 'Comrade42\PhpBBParser\Entity\SimpleMachines\CategoryEntity');
+
+        return $entity->name;
+    }
+
+    /**
+     * @param EntityInterface $entity
+     * @return string
+     */
+    public function getForumTitle(EntityInterface $entity)
+    {
+        /** @var \Comrade42\PhpBBParser\Entity\SimpleMachines\BoardEntity $entity */
+        $this->validateEntityClass($entity, 'Comrade42\PhpBBParser\Entity\SimpleMachines\BoardEntity');
+
+        return $entity->name;
+    }
+
+    /**
+     * @param EntityInterface $entity
+     * @param string $expectedClass
      * @throws \InvalidArgumentException
      */
-    protected function validateEntityClass(EntityInterface $entity)
+    protected function validateEntityClass(EntityInterface $entity, $expectedClass)
     {
-        $expected = 'Comrade42\PhpBBParser\Entity\SimpleMachines\Member';
-
-        if (!$entity instanceof $expected) {
-            $actual = get_class($entity);
-            throw new \InvalidArgumentException("Wrong entity '{$actual}' specified! Instance of '{$expected}' expected.");
+        if (!$entity instanceof $expectedClass) {
+            $actualClass = get_class($entity);
+            throw new \InvalidArgumentException("Wrong entity '{$actualClass}' specified! Instance of '{$expectedClass}' expected.");
         }
     }
 }

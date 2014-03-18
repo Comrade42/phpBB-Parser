@@ -5,7 +5,7 @@ namespace Comrade42\PhpBBParser\Entity\SimpleMachines;
 use Comrade42\PhpBBParser\Entity\EntityInterface;
 
 /**
- * Class Member
+ * Class MemberEntity
  * @package Comrade42\PhpBBParser\Entity\SimpleMachines
  * @Entity
  * @Table(name="members", indexes={
@@ -23,7 +23,7 @@ use Comrade42\PhpBBParser\Entity\EntityInterface;
  *     @Index(name="id_theme", columns={"id_theme"})
  * })
  */
-class Member implements EntityInterface
+class MemberEntity implements EntityInterface
 {
     /**
      * @var integer

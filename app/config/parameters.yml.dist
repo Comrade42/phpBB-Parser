@@ -10,3 +10,6 @@ parameters:
     forum_url:          ~
 
     bridge_class:       Comrade42\PhpBBParser\Bridge\SimpleMachinesBridge
+
+    fa_sid_cookie_name:   ~
+    fa_sid_cookie_value:  ~

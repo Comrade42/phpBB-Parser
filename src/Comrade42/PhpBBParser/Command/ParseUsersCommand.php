@@ -45,31 +45,31 @@ class ParseUsersCommand extends ContainerAwareCommand
 
             if ($status != 200) break;
 
-            $crawler = $crawler->filter('#memberlist tbody tr');
-
-            $crawler->each(function (Crawler $node) use ($output, $entityManager, $entityBridge, $dialogHelper)
-            {
-                $columns = $node->children();
-                $id = substr($columns->eq(1)->filter('a')->attr('href'), 2);
-                $nickname = substr($columns->eq(1)->text(), 2);
-
-                $entity = $entityBridge->getMemberEntity($entityManager, $id);
-                $memberName = $entityBridge->getMemberNickname($entity);
-
-                if (!empty($memberName) && $memberName != $nickname && !$dialogHelper->askConfirmation(
-                        $output,
-                        "<question>Member name doesn't match for #{$id} ({$memberName} → {$nickname}). Update entity? [Y/n]:</question> "
-                    ))
+            $crawler->filter('#memberlist tbody tr')->each(
+                function (Crawler $node) use ($output, $entityManager, $entityBridge, $dialogHelper)
                 {
-                    return;
+                    $columns = $node->children();
+                    $id = substr($columns->eq(1)->filter('a')->attr('href'), 2);
+                    $nickname = substr($columns->eq(1)->text(), 2);
+
+                    $entity = $entityBridge->getMemberEntity($entityManager, $id);
+                    $memberName = $entityBridge->getMemberNickname($entity);
+
+                    if (!empty($memberName) && $memberName != $nickname && !$dialogHelper->askConfirmation(
+                            $output,
+                            "<question>Member name doesn't match for #{$id} ({$memberName} → {$nickname}). Update entity? [Y/n]:</question> "
+                        ))
+                    {
+                        return;
+                    }
+
+                    $regDate = \DateTime::createFromFormat('Y-m-d H:i:s', $columns->eq(3)->text() . ' 00:00:00');
+                    $avatarUrl = $columns->eq(1)->filter('a img')->attr('src');
+
+                    $entityBridge->fillMemberEntity($entity, $nickname, $regDate, $avatarUrl);
+                    $entityManager->persist($entity);
                 }
-
-                $regDate = \DateTime::createFromFormat('Y-m-d H:i:s', $columns->eq(3)->text() . ' 00:00:00');
-                $avatarUrl = $columns->eq(1)->filter('a img')->attr('src');
-
-                $entityBridge->fillMemberEntity($entity, $nickname, $regDate, $avatarUrl);
-                $entityManager->persist($entity);
-            });
+            );
 
             $entityManager->flush();
             $offset += static::USERS_PER_PAGE;
