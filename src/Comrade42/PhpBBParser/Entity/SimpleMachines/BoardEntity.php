@@ -2,7 +2,7 @@
 
 namespace Comrade42\PhpBBParser\Entity\SimpleMachines;
 
-use Comrade42\PhpBBParser\Entity\EntityInterface;
+use Comrade42\PhpBBParser\Entity\ForumInterface;
 
 /**
  * Class BoardEntity
@@ -20,7 +20,7 @@ use Comrade42\PhpBBParser\Entity\EntityInterface;
  *     }
  * )
  */
-class BoardEntity implements EntityInterface
+class BoardEntity implements ForumInterface
 {
     /**
      * @var integer
@@ -162,5 +162,68 @@ class BoardEntity implements EntityInterface
     public function getId()
     {
         return $this->idBoard;
+    }
+
+    /**
+     * @param int $id
+     * @return BoardEntity
+     */
+    public function setId($id)
+    {
+        $this->idBoard = intval($id);
+
+        return $this;
+    }
+
+    /**
+     * @param int $id
+     * @return BoardEntity
+     */
+    public function setCategoryId($id)
+    {
+        $this->idCat = intval($id);
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $title
+     * @return BoardEntity
+     */
+    public function setTitle($title)
+    {
+        $this->name = strval($title);
+
+        return $this;
+    }
+
+    /**
+     * @param string $description
+     * @return BoardEntity
+     */
+    public function setDescription($description)
+    {
+        $this->description = strval($description);
+
+        return $this;
+    }
+
+    /**
+     * @param int $order
+     * @return BoardEntity
+     */
+    public function setOrder($order)
+    {
+        $this->boardOrder = intval($order);
+
+        return $this;
     }
 }

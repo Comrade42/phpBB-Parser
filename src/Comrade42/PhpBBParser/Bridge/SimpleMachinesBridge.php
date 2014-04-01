@@ -6,6 +6,8 @@ use Comrade42\PhpBBParser\Entity\EntityInterface;
 use Comrade42\PhpBBParser\Entity\SimpleMachines\BoardEntity;
 use Comrade42\PhpBBParser\Entity\SimpleMachines\CategoryEntity;
 use Comrade42\PhpBBParser\Entity\SimpleMachines\MemberEntity;
+use Comrade42\PhpBBParser\Entity\SimpleMachines\MessageEntity;
+use Comrade42\PhpBBParser\Entity\SimpleMachines\TopicEntity;
 use Doctrine\ORM\EntityManager;
 
 /**
@@ -71,6 +73,53 @@ class SimpleMachinesBridge implements BridgeInterface
         }
 
         return $entity;
+    }
+
+    /**
+     * @param EntityManager $entityManager
+     * @param int|null $entityId
+     * @return TopicEntity
+     */
+    public function getTopicEntity(EntityManager $entityManager, $entityId = null)
+    {
+        /** @var \Comrade42\PhpBBParser\Entity\SimpleMachines\TopicEntity $entity */
+        $entity = $entityManager->find('Comrade42\PhpBBParser\Entity\SimpleMachines\TopicEntity', $entityId);
+
+        if (empty($entity))
+        {
+            $entity = new TopicEntity();
+            $entity->setId($entityId);
+        }
+
+        return $entity;
+    }
+
+    /**
+     * @param EntityManager $entityManager
+     * @param int|null $entityId
+     * @return MessageEntity
+     */
+    public function getPostEntity(EntityManager $entityManager, $entityId = null)
+    {
+        /** @var \Comrade42\PhpBBParser\Entity\SimpleMachines\MessageEntity $entity */
+        $entity = $entityManager->find('Comrade42\PhpBBParser\Entity\SimpleMachines\MessageEntity', $entityId);
+
+        if (empty($entity))
+        {
+            $entity = new MessageEntity();
+            $entity->setId($entityId);
+        }
+
+        return $entity;
+    }
+
+    /**
+     * @param EntityManager $entityManager
+     * @return BoardEntity[]
+     */
+    public function getForumList(EntityManager $entityManager)
+    {
+        return $entityManager->getRepository('Comrade42\PhpBBParser\Entity\SimpleMachines\BoardEntity')->findAll();
     }
 
     /**

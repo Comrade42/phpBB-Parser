@@ -48,4 +48,15 @@ class CategoryEntity implements EntityInterface
     {
         return $this->idCat;
     }
+
+    /**
+     * @param int $id
+     * @return CategoryEntity
+     */
+    public function setId($id)
+    {
+        $this->idCat = intval($id);
+
+        return $this;
+    }
 }

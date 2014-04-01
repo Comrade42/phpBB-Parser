@@ -1,17 +1,21 @@
 <?php
 
-namespace Comrade42\PhpBBParser\Helper;
+namespace Comrade42\PhpBBParser\Helper\BBCodes;
 
 /**
- * Class BBCodesHelper
- * @package Comrade42\PhpBBParser\Helper
+ * Class PCREParser
+ * @package Comrade42\PhpBBParser\Helper\BBCodes
  */
-class BBCodesHelper implements BBCodesInterface
+class PCREParser implements ParserInterface
 {
     /**
      * @var array
      */
     protected static $patterns = array(
+        '_' => array(
+            '/>\s*</sU' => '><',
+            '/<br>/sU'  => PHP_EOL
+        ),
         'typeface' => array(
             '/<strong>(.*)<\/strong>/sU'    => '[b]$1[/b]',
             '/<u>(.*)<\/u>/sU'              => '[u]$1[/u]',
@@ -31,8 +35,8 @@ class BBCodesHelper implements BBCodesInterface
             '/<span style="font-family: (.+)">(.*)<\/span>/sU'  => '[font=$1]$2[/font]'
         ),
         'quote' => array(
-            '/<blockquote><div><cite>(.+) пишет:<\/cite>(.*)<\/div><\/blockquote>/sU'   => '[quote="$1"]$2[/quote]',
-            '/<blockquote><div>(.*)<\/div><\/blockquote>/sU'                            => '[quote]$1[/quote]'
+            '/<blockquote><div><cite>(.+?) пишет:<\/cite>(.*)<\/div><\/blockquote>/s'   => '[quote="$1"]$2[/quote]',
+            '/<blockquote><div>(.*)<\/div><\/blockquote>/s'                             => '[quote]$1[/quote]'
         ),
         'code' => array(
             '/<dl class="codebox"><dt>Код:<\/dt><dd><code>(.*)<\/code><\/dd><\/dl>/sU'  => '[code]$1[/code]'
@@ -95,6 +99,21 @@ class BBCodesHelper implements BBCodesInterface
     protected static function parse($html, $section)
     {
         $patterns = static::$patterns[$section];
+
+        if ($section == 'quote')
+        {
+            $patterns = array_keys($patterns);
+            $pattern = array_shift($patterns);
+            $replacement = static::$patterns['quote'][$pattern];
+
+            while (false !== strpos($html, '<cite>')) {
+                $html = preg_replace($pattern, $replacement, $html);
+            }
+
+            $pattern = $patterns[0];
+            $patterns = array($pattern => static::$patterns['quote'][$pattern]);
+        }
+
         return preg_replace(array_keys($patterns), $patterns, $html);
     }
 
@@ -111,7 +130,7 @@ class BBCodesHelper implements BBCodesInterface
             $html = static::parse($html, $section);
         }
 
-        return $html;
+        return trim($html);
     }
 
     /**

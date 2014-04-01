@@ -1,12 +1,12 @@
 <?php
 
-namespace Comrade42\PhpBBParser\Helper;
+namespace Comrade42\PhpBBParser\Helper\BBCodes;
 
 /**
- * Interface BBCodesInterface
- * @package Comrade42\PhpBBParser\Helper
+ * Interface ParserInterface
+ * @package Comrade42\PhpBBParser\Helper\BBCodes
  */
-interface BBCodesInterface
+interface ParserInterface
 {
     /**
      * Parses all BBCode tags in the HTML source at once

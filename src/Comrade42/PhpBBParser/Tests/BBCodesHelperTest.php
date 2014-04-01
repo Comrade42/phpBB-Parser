@@ -2,13 +2,14 @@
 
 namespace Comrade42\PhpBBParser\Tests;
 
-use Comrade42\PhpBBParser\Helper\BBCodesHelper;
+use Comrade42\PhpBBParser\Helper\BBCodes\DOMParser;
+use Comrade42\PhpBBParser\Helper\BBCodes\PCREParser;
 
 /**
- * Class BBCodesHelperTest
+ * Class PCREParserTest
  * @package Comrade42\PhpBBParser\Tests
  */
-class BBCodesHelperTest extends \PHPUnit_Framework_TestCase
+class PCREParserTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @param string $html
@@ -17,7 +18,8 @@ class BBCodesHelperTest extends \PHPUnit_Framework_TestCase
      */
     public function testParseTypeface($html, $expected)
     {
-        $this->assertEquals($expected, BBCodesHelper::parseTypeface($html));
+        $this->assertEquals($expected, PCREParser::parseTypeface($html));
+//        $this->assertEquals($expected, DOMParser::parseTypeface($html));
     }
 
     /**
@@ -27,7 +29,7 @@ class BBCodesHelperTest extends \PHPUnit_Framework_TestCase
      */
     public function testParseAlign($html, $expected)
     {
-        $this->assertEquals($expected, BBCodesHelper::parseAlign($html));
+        $this->assertEquals($expected, PCREParser::parseAlign($html));
     }
 
     /**
@@ -37,7 +39,7 @@ class BBCodesHelperTest extends \PHPUnit_Framework_TestCase
      */
     public function testParseColor($html, $expected)
     {
-        $this->assertEquals($expected, BBCodesHelper::parseColor($html));
+        $this->assertEquals($expected, PCREParser::parseColor($html));
     }
 
     /**
@@ -47,7 +49,7 @@ class BBCodesHelperTest extends \PHPUnit_Framework_TestCase
      */
     public function testParseSize($html, $expected)
     {
-        $this->assertEquals($expected, BBCodesHelper::parseSize($html));
+        $this->assertEquals($expected, PCREParser::parseSize($html));
     }
 
     /**
@@ -57,7 +59,7 @@ class BBCodesHelperTest extends \PHPUnit_Framework_TestCase
      */
     public function testParseFont($html, $expected)
     {
-        $this->assertEquals($expected, BBCodesHelper::parseFont($html));
+        $this->assertEquals($expected, PCREParser::parseFont($html));
     }
 
     /**
@@ -67,7 +69,7 @@ class BBCodesHelperTest extends \PHPUnit_Framework_TestCase
      */
     public function testParseQuote($html, $expected)
     {
-        $this->assertEquals($expected, BBCodesHelper::parseQuote($html));
+        $this->assertEquals($expected, PCREParser::parseQuote($html));
     }
 
     /**
@@ -77,7 +79,7 @@ class BBCodesHelperTest extends \PHPUnit_Framework_TestCase
      */
     public function testParseCode($html, $expected)
     {
-        $this->assertEquals($expected, BBCodesHelper::parseCode($html));
+        $this->assertEquals($expected, PCREParser::parseCode($html));
     }
 
     /**
@@ -87,7 +89,7 @@ class BBCodesHelperTest extends \PHPUnit_Framework_TestCase
      */
     public function testParseHide($html, $expected)
     {
-        $this->assertEquals($expected, BBCodesHelper::parseHide($html));
+        $this->assertEquals($expected, PCREParser::parseHide($html));
     }
 
     /**
@@ -97,7 +99,7 @@ class BBCodesHelperTest extends \PHPUnit_Framework_TestCase
      */
     public function testParseList($html, $expected)
     {
-        $this->assertEquals($expected, BBCodesHelper::parseList($html));
+        $this->assertEquals($expected, PCREParser::parseList($html));
     }
 
     /**
@@ -107,7 +109,7 @@ class BBCodesHelperTest extends \PHPUnit_Framework_TestCase
      */
     public function testParseLink($html, $expected)
     {
-        $this->assertEquals($expected, BBCodesHelper::parseLink($html));
+        $this->assertEquals($expected, PCREParser::parseLink($html));
     }
 
     /**
@@ -117,7 +119,7 @@ class BBCodesHelperTest extends \PHPUnit_Framework_TestCase
      */
     public function testParseImage($html, $expected)
     {
-        $this->assertEquals($expected, BBCodesHelper::parseImage($html));
+        $this->assertEquals($expected, PCREParser::parseImage($html));
     }
 
     /**
@@ -127,7 +129,7 @@ class BBCodesHelperTest extends \PHPUnit_Framework_TestCase
      */
     public function testParseVideo($html, $expected)
     {
-        $this->assertEquals($expected, BBCodesHelper::parseVideo($html));
+        $this->assertEquals($expected, PCREParser::parseVideo($html));
     }
 
     /**
@@ -137,7 +139,7 @@ class BBCodesHelperTest extends \PHPUnit_Framework_TestCase
      */
     public function testParseFlash($html, $expected)
     {
-        $this->assertEquals($expected, BBCodesHelper::parseFlash($html));
+        $this->assertEquals($expected, PCREParser::parseFlash($html));
     }
 
     /**
@@ -147,7 +149,7 @@ class BBCodesHelperTest extends \PHPUnit_Framework_TestCase
      */
     public function testParseTable($html, $expected)
     {
-        $this->assertEquals($expected, BBCodesHelper::parseTable($html));
+        $this->assertEquals($expected, PCREParser::parseTable($html));
     }
 
     /**
@@ -157,7 +159,7 @@ class BBCodesHelperTest extends \PHPUnit_Framework_TestCase
      */
     public function testParseScrolling($html, $expected)
     {
-        $this->assertEquals($expected, BBCodesHelper::parseScrolling($html));
+        $this->assertEquals($expected, PCREParser::parseScrolling($html));
     }
 
     /**
@@ -167,7 +169,7 @@ class BBCodesHelperTest extends \PHPUnit_Framework_TestCase
      */
     public function testParseLine($html, $expected)
     {
-        $this->assertEquals($expected, BBCodesHelper::parseLine($html));
+        $this->assertEquals($expected, PCREParser::parseLine($html));
     }
 
     /**
@@ -177,7 +179,7 @@ class BBCodesHelperTest extends \PHPUnit_Framework_TestCase
      */
     public function testParseIndex($html, $expected)
     {
-        $this->assertEquals($expected, BBCodesHelper::parseIndex($html));
+        $this->assertEquals($expected, PCREParser::parseIndex($html));
     }
 
     /**
@@ -187,7 +189,7 @@ class BBCodesHelperTest extends \PHPUnit_Framework_TestCase
      */
     public function testParseEffect($html, $expected)
     {
-        $this->assertEquals($expected, BBCodesHelper::parseEffect($html));
+        $this->assertEquals($expected, PCREParser::parseEffect($html));
     }
 
     /**
@@ -197,7 +199,7 @@ class BBCodesHelperTest extends \PHPUnit_Framework_TestCase
      */
     public function testParseRandom($html, $expected)
     {
-        $this->assertEquals($expected, BBCodesHelper::parseRandom($html));
+        $this->assertEquals($expected, PCREParser::parseRandom($html));
     }
 
     /**
@@ -294,7 +296,15 @@ class BBCodesHelperTest extends \PHPUnit_Framework_TestCase
             array('<blockquote><div>Цитата без ссылки</div></blockquote>', '[quote]Цитата без ссылки[/quote]'),
             array('Добрый <blockquote><div>Цитата без ссылки</div></blockquote> день', 'Добрый [quote]Цитата без ссылки[/quote] день'),
             array('<blockquote><div><cite>Иванов пишет:</cite>Добрый день</div></blockquote>', '[quote="Иванов"]Добрый день[/quote]'),
-            array('Добрый <blockquote><div><cite>Иванов пишет:</cite>Добрый день</div></blockquote> день', 'Добрый [quote="Иванов"]Добрый день[/quote] день')
+            array('Добрый <blockquote><div><cite>Иванов пишет:</cite>Добрый день</div></blockquote> день', 'Добрый [quote="Иванов"]Добрый день[/quote] день'),
+            array(
+                '<blockquote><div><cite>Вася пишет:</cite><blockquote><div>Добрый день</div></blockquote>Привет, Петя</div></blockquote>Привет всем!',
+                '[quote="Вася"][quote]Добрый день[/quote]Привет, Петя[/quote]Привет всем!'
+            ),
+            array(
+                '<blockquote><div><cite>Вася пишет:</cite><blockquote><div><cite>Петя пишет:</cite>Добрый день</div></blockquote>Привет, Петя</div></blockquote>Привет всем!',
+                '[quote="Вася"][quote="Петя"]Добрый день[/quote]Привет, Петя[/quote]Привет всем!'
+            )
         );
     }
 

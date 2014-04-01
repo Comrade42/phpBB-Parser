@@ -9,7 +9,13 @@ namespace Comrade42\PhpBBParser\Entity;
 interface EntityInterface
 {
     /**
-     * @return mixed
+     * @return int
      */
     public function getId();
+
+    /**
+     * @param int $id
+     * @return EntityInterface
+     */
+    public function setId($id);
 }

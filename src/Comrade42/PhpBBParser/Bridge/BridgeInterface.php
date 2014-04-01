@@ -3,6 +3,9 @@
 namespace Comrade42\PhpBBParser\Bridge;
 
 use Comrade42\PhpBBParser\Entity\EntityInterface;
+use Comrade42\PhpBBParser\Entity\ForumInterface;
+use Comrade42\PhpBBParser\Entity\PostInterface;
+use Comrade42\PhpBBParser\Entity\TopicInterface;
 use Doctrine\ORM\EntityManager;
 
 /**
@@ -31,6 +34,26 @@ interface BridgeInterface
      * @return EntityInterface
      */
     public function getForumEntity(EntityManager $entityManager, $entityId = null);
+
+    /**
+     * @param EntityManager $entityManager
+     * @param int|null $entityId
+     * @return TopicInterface
+     */
+    public function getTopicEntity(EntityManager $entityManager, $entityId = null);
+
+    /**
+     * @param EntityManager $entityManager
+     * @param int|null $entityId
+     * @return PostInterface
+     */
+    public function getPostEntity(EntityManager $entityManager, $entityId = null);
+
+    /**
+     * @param EntityManager $entityManager
+     * @return ForumInterface[]
+     */
+    public function getForumList(EntityManager $entityManager);
 
     /**
      * @param EntityInterface $entity

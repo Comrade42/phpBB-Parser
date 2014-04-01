@@ -453,4 +453,15 @@ class MemberEntity implements EntityInterface
     {
         return $this->idMember;
     }
+
+    /**
+     * @param int $id
+     * @return MemberEntity
+     */
+    public function setId($id)
+    {
+        $this->idMember = intval($id);
+
+        return $this;
+    }
 }
