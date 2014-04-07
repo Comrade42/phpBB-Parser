@@ -35,8 +35,8 @@ class PCREParser implements ParserInterface
             '/<span style="font-family: (.+)">(.*)<\/span>/sU'  => '[font=$1]$2[/font]'
         ),
         'quote' => array(
-            '/<blockquote><div><cite>(.+?) пишет:<\/cite>(.*)<\/div><\/blockquote>/s'   => '[quote="$1"]$2[/quote]',
-            '/<blockquote><div>(.*)<\/div><\/blockquote>/s'                             => '[quote]$1[/quote]'
+            '/<blockquote><div><cite>(.+) пишет:<\/cite>(.*)<\/div><\/blockquote>/sU'   => '[quote="$1"]$2[/quote]',
+            '/<blockquote><div>(.*)<\/div><\/blockquote>/sU'                            => '[quote]$1[/quote]'
         ),
         'code' => array(
             '/<dl class="codebox"><dt>Код:<\/dt><dd><code>(.*)<\/code><\/dd><\/dl>/sU'  => '[code]$1[/code]'
@@ -100,21 +100,18 @@ class PCREParser implements ParserInterface
     {
         $patterns = static::$patterns[$section];
 
-        if ($section == 'quote')
-        {
-            $patterns = array_keys($patterns);
-            $pattern = array_shift($patterns);
-            $replacement = static::$patterns['quote'][$pattern];
-
-            while (false !== strpos($html, '<cite>')) {
-                $html = preg_replace($pattern, $replacement, $html);
+        if ($section == 'quote') {
+            while (false !== strpos($html, '<blockquote>'))
+            {
+                $position = strrpos($html, '<blockquote>');
+                $_html = preg_replace(array_keys($patterns), $patterns, substr($html, $position));
+                $html = substr($html, 0, $position) . $_html;
             }
-
-            $pattern = $patterns[0];
-            $patterns = array($pattern => static::$patterns['quote'][$pattern]);
+        } else {
+            $html = preg_replace(array_keys($patterns), $patterns, $html);
         }
 
-        return preg_replace(array_keys($patterns), $patterns, $html);
+        return $html;
     }
 
     /**
