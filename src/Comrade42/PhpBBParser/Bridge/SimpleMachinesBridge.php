@@ -16,8 +16,6 @@ use Doctrine\ORM\EntityManager;
  */
 class SimpleMachinesBridge implements BridgeInterface
 {
-    const DEFAULT_PASSWORD = '1q2w3e4r';
-
     /**
      * @param EntityManager $entityManager
      * @param int|null $entityId
@@ -31,7 +29,7 @@ class SimpleMachinesBridge implements BridgeInterface
         if (empty($entity))
         {
             $entity = new MemberEntity();
-            $entity->idMember = $entityId;
+            $entity->setId($entityId);
         }
 
         return $entity;
@@ -124,28 +122,6 @@ class SimpleMachinesBridge implements BridgeInterface
 
     /**
      * @param EntityInterface $entity
-     * @param string $nickname
-     * @param \DateTime $regDate
-     * @param string $avatarUrl
-     */
-    public function fillMemberEntity(EntityInterface $entity, $nickname, \DateTime $regDate, $avatarUrl)
-    {
-        /** @var \Comrade42\PhpBBParser\Entity\SimpleMachines\MemberEntity $entity */
-        $this->validateEntityClass($entity, 'Comrade42\PhpBBParser\Entity\SimpleMachines\MemberEntity');
-
-        $entity->memberName     = $nickname;
-        $entity->dateRegistered = $regDate->getTimestamp();
-        $entity->realName       = $nickname;
-        $entity->passwd         = sha1(strtolower($entity->memberName) . static::DEFAULT_PASSWORD);
-        $entity->emailAddress   = uniqid() . '@mailforspam.com';
-        $entity->hideEmail      = 1;
-        $entity->avatar         = $avatarUrl;
-        $entity->idPostGroup    = 4;
-        $entity->passwordSalt   = substr(md5(mt_rand()), 0, 4);
-    }
-
-    /**
-     * @param EntityInterface $entity
      * @param string $name
      * @param int $order
      */
@@ -174,18 +150,6 @@ class SimpleMachinesBridge implements BridgeInterface
         $entity->name           = $title;
         $entity->description    = $description;
         $entity->boardOrder     = $order;
-    }
-
-    /**
-     * @param EntityInterface $entity
-     * @return string
-     */
-    public function getMemberNickname(EntityInterface $entity)
-    {
-        /** @var \Comrade42\PhpBBParser\Entity\SimpleMachines\MemberEntity $entity */
-        $this->validateEntityClass($entity, 'Comrade42\PhpBBParser\Entity\SimpleMachines\MemberEntity');
-
-        return $entity->memberName;
     }
 
     /**

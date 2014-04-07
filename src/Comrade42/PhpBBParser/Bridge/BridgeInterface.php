@@ -4,6 +4,7 @@ namespace Comrade42\PhpBBParser\Bridge;
 
 use Comrade42\PhpBBParser\Entity\EntityInterface;
 use Comrade42\PhpBBParser\Entity\ForumInterface;
+use Comrade42\PhpBBParser\Entity\MemberInterface;
 use Comrade42\PhpBBParser\Entity\PostInterface;
 use Comrade42\PhpBBParser\Entity\TopicInterface;
 use Doctrine\ORM\EntityManager;
@@ -17,7 +18,7 @@ interface BridgeInterface
     /**
      * @param EntityManager $entityManager
      * @param int|null $entityId
-     * @return EntityInterface
+     * @return MemberInterface
      */
     public function getMemberEntity(EntityManager $entityManager, $entityId = null);
 
@@ -57,14 +58,6 @@ interface BridgeInterface
 
     /**
      * @param EntityInterface $entity
-     * @param string $nickname
-     * @param \DateTime $regDate
-     * @param string $avatarUrl
-     */
-    public function fillMemberEntity(EntityInterface $entity, $nickname, \DateTime $regDate, $avatarUrl);
-
-    /**
-     * @param EntityInterface $entity
      * @param string $name
      * @param int $order
      */
@@ -78,12 +71,6 @@ interface BridgeInterface
      * @param int $order
      */
     public function fillForumEntity(EntityInterface $entity, $categoryId, $title, $description, $order);
-
-    /**
-     * @param EntityInterface $entity
-     * @return string
-     */
-    public function getMemberNickname(EntityInterface $entity);
 
     /**
      * @param EntityInterface $entity

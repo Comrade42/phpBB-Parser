@@ -2,7 +2,7 @@
 
 namespace Comrade42\PhpBBParser\Entity\SimpleMachines;
 
-use Comrade42\PhpBBParser\Entity\EntityInterface;
+use Comrade42\PhpBBParser\Entity\MemberInterface;
 
 /**
  * Class MemberEntity
@@ -23,7 +23,7 @@ use Comrade42\PhpBBParser\Entity\EntityInterface;
  *     @Index(name="id_theme", columns={"id_theme"})
  * })
  */
-class MemberEntity implements EntityInterface
+class MemberEntity implements MemberInterface
 {
     /**
      * @var integer
@@ -31,420 +31,420 @@ class MemberEntity implements EntityInterface
      * @Column(name="id_member", type="integer", nullable=false)
      * @Id
      */
-    public $idMember;
+    private $idMember;
 
     /**
      * @var string
      *
      * @Column(name="member_name", type="string", length=80, nullable=false)
      */
-    public $memberName = '';
+    private $memberName = '';
 
     /**
      * @var integer
      *
      * @Column(name="date_registered", type="integer", nullable=false)
      */
-    public $dateRegistered = 0;
+    private $dateRegistered = 0;
 
     /**
      * @var integer
      *
      * @Column(name="posts", type="integer", nullable=false)
      */
-    public $posts = 0;
+    private $posts = 0;
 
     /**
      * @var integer
      *
      * @Column(name="id_group", type="smallint", nullable=false)
      */
-    public $idGroup = 0;
+    private $idGroup = 0;
 
     /**
      * @var string
      *
      * @Column(name="lngfile", type="string", length=255, nullable=false)
      */
-    public $lngfile = '';
+    private $lngfile = '';
 
     /**
      * @var integer
      *
      * @Column(name="last_login", type="integer", nullable=false)
      */
-    public $lastLogin = 0;
+    private $lastLogin = 0;
 
     /**
      * @var string
      *
      * @Column(name="real_name", type="string", length=255, nullable=false)
      */
-    public $realName = '';
+    private $realName = '';
 
     /**
      * @var integer
      *
      * @Column(name="instant_messages", type="smallint", nullable=false)
      */
-    public $instantMessages = 0;
+    private $instantMessages = 0;
 
     /**
      * @var integer
      *
      * @Column(name="unread_messages", type="smallint", nullable=false)
      */
-    public $unreadMessages = 0;
+    private $unreadMessages = 0;
 
     /**
-     * @var boolean
+     * @var integer
      *
-     * @Column(name="new_pm", type="boolean", nullable=false)
+     * @Column(name="new_pm", type="smallint", nullable=false)
      */
-    public $newPm = 0;
+    private $newPm = 0;
 
     /**
      * @var string
      *
      * @Column(name="buddy_list", type="text", nullable=false)
      */
-    public $buddyList = '';
+    private $buddyList = '';
 
     /**
      * @var string
      *
      * @Column(name="pm_ignore_list", type="string", length=255, nullable=false)
      */
-    public $pmIgnoreList = '';
+    private $pmIgnoreList = '';
 
     /**
      * @var integer
      *
      * @Column(name="pm_prefs", type="integer", nullable=false)
      */
-    public $pmPrefs = 0;
+    private $pmPrefs = 0;
 
     /**
      * @var string
      *
      * @Column(name="mod_prefs", type="string", length=20, nullable=false)
      */
-    public $modPrefs = '';
+    private $modPrefs = '';
 
     /**
      * @var string
      *
      * @Column(name="message_labels", type="text", nullable=false)
      */
-    public $messageLabels = '';
+    private $messageLabels = '';
 
     /**
      * @var string
      *
      * @Column(name="passwd", type="string", length=64, nullable=false)
      */
-    public $passwd = '';
+    private $passwd = '';
 
     /**
      * @var string
      *
      * @Column(name="openid_uri", type="text", nullable=false)
      */
-    public $openidUri = '';
+    private $openidUri = '';
 
     /**
      * @var string
      *
      * @Column(name="email_address", type="string", length=255, nullable=false)
      */
-    public $emailAddress = '';
+    private $emailAddress = '';
 
     /**
      * @var string
      *
      * @Column(name="personal_text", type="string", length=255, nullable=false)
      */
-    public $personalText = '';
+    private $personalText = '';
 
     /**
-     * @var boolean
+     * @var integer
      *
-     * @Column(name="gender", type="boolean", nullable=false)
+     * @Column(name="gender", type="smallint", nullable=false)
      */
-    public $gender = 0;
+    private $gender = 0;
 
 //    /**
 //     * @var \DateTime
 //     *
 //     * @Column(name="birthdate", type="date", nullable=false)
 //     */
-//    public $birthdate = '0001-01-01';
+//    private $birthdate = '0001-01-01';
 
     /**
      * @var string
      *
      * @Column(name="website_title", type="string", length=255, nullable=false)
      */
-    public $websiteTitle = '';
+    private $websiteTitle = '';
 
     /**
      * @var string
      *
      * @Column(name="website_url", type="string", length=255, nullable=false)
      */
-    public $websiteUrl = '';
+    private $websiteUrl = '';
 
     /**
      * @var string
      *
      * @Column(name="location", type="string", length=255, nullable=false)
      */
-    public $location = '';
+    private $location = '';
 
     /**
      * @var string
      *
      * @Column(name="icq", type="string", length=255, nullable=false)
      */
-    public $icq = '';
+    private $icq = '';
 
     /**
      * @var string
      *
      * @Column(name="aim", type="string", length=255, nullable=false)
      */
-    public $aim = '';
+    private $aim = '';
 
     /**
      * @var string
      *
      * @Column(name="yim", type="string", length=32, nullable=false)
      */
-    public $yim = '';
+    private $yim = '';
 
     /**
      * @var string
      *
      * @Column(name="msn", type="string", length=255, nullable=false)
      */
-    public $msn = '';
+    private $msn = '';
 
     /**
      * @var boolean
      *
      * @Column(name="hide_email", type="boolean", nullable=false)
      */
-    public $hideEmail = 0;
+    private $hideEmail = 1;
 
     /**
      * @var boolean
      *
      * @Column(name="show_online", type="boolean", nullable=false)
      */
-    public $showOnline = 1;
+    private $showOnline = 1;
 
     /**
      * @var string
      *
      * @Column(name="time_format", type="string", length=80, nullable=false)
      */
-    public $timeFormat = '';
+    private $timeFormat = '';
 
     /**
      * @var string
      *
      * @Column(name="signature", type="text", nullable=false)
      */
-    public $signature = '';
+    private $signature = '';
 
     /**
      * @var float
      *
      * @Column(name="time_offset", type="float", precision=10, scale=0, nullable=false)
      */
-    public $timeOffset = 0;
+    private $timeOffset = 0;
 
     /**
      * @var string
      *
      * @Column(name="avatar", type="string", length=255, nullable=false)
      */
-    public $avatar = '';
+    private $avatar = '';
 
     /**
      * @var boolean
      *
      * @Column(name="pm_email_notify", type="boolean", nullable=false)
      */
-    public $pmEmailNotify = 0;
+    private $pmEmailNotify = 0;
 
     /**
      * @var integer
      *
      * @Column(name="karma_bad", type="smallint", nullable=false)
      */
-    public $karmaBad = 0;
+    private $karmaBad = 0;
 
     /**
      * @var integer
      *
      * @Column(name="karma_good", type="smallint", nullable=false)
      */
-    public $karmaGood = 0;
+    private $karmaGood = 0;
 
     /**
      * @var string
      *
      * @Column(name="usertitle", type="string", length=255, nullable=false)
      */
-    public $usertitle = '';
+    private $usertitle = '';
 
     /**
      * @var boolean
      *
      * @Column(name="notify_announcements", type="boolean", nullable=false)
      */
-    public $notifyAnnouncements = 1;
+    private $notifyAnnouncements = 1;
 
     /**
-     * @var boolean
+     * @var integer
      *
-     * @Column(name="notify_regularity", type="boolean", nullable=false)
+     * @Column(name="notify_regularity", type="smallint", nullable=false)
      */
-    public $notifyRegularity = 1;
+    private $notifyRegularity = 1;
 
     /**
      * @var boolean
      *
      * @Column(name="notify_send_body", type="boolean", nullable=false)
      */
-    public $notifySendBody = 0;
+    private $notifySendBody = 0;
 
     /**
-     * @var boolean
+     * @var integer
      *
-     * @Column(name="notify_types", type="boolean", nullable=false)
+     * @Column(name="notify_types", type="smallint", nullable=false)
      */
-    public $notifyTypes = 2;
+    private $notifyTypes = 2;
 
     /**
      * @var string
      *
      * @Column(name="member_ip", type="string", length=255, nullable=false)
      */
-    public $memberIp = '';
+    private $memberIp = '';
 
     /**
      * @var string
      *
      * @Column(name="member_ip2", type="string", length=255, nullable=false)
      */
-    public $memberIp2 = '';
+    private $memberIp2 = '';
 
     /**
      * @var string
      *
      * @Column(name="secret_question", type="string", length=255, nullable=false)
      */
-    public $secretQuestion = '';
+    private $secretQuestion = '';
 
     /**
      * @var string
      *
      * @Column(name="secret_answer", type="string", length=64, nullable=false)
      */
-    public $secretAnswer = '';
+    private $secretAnswer = '';
 
     /**
-     * @var boolean
+     * @var integer
      *
-     * @Column(name="id_theme", type="boolean", nullable=false)
+     * @Column(name="id_theme", type="smallint", nullable=false)
      */
-    public $idTheme = 0;
+    private $idTheme = 0;
 
     /**
      * @var boolean
      *
      * @Column(name="is_activated", type="boolean", nullable=false)
      */
-    public $isActivated = 1;
+    private $isActivated = 1;
 
     /**
      * @var string
      *
      * @Column(name="validation_code", type="string", length=10, nullable=false)
      */
-    public $validationCode = '';
+    private $validationCode = '';
 
     /**
      * @var integer
      *
      * @Column(name="id_msg_last_visit", type="integer", nullable=false)
      */
-    public $idMsgLastVisit = 0;
+    private $idMsgLastVisit = 0;
 
     /**
      * @var string
      *
      * @Column(name="additional_groups", type="string", length=255, nullable=false)
      */
-    public $additionalGroups = '';
+    private $additionalGroups = '';
 
     /**
      * @var string
      *
      * @Column(name="smiley_set", type="string", length=48, nullable=false)
      */
-    public $smileySet = '';
+    private $smileySet = '';
 
     /**
      * @var integer
      *
      * @Column(name="id_post_group", type="smallint", nullable=false)
      */
-    public $idPostGroup = 0;
+    private $idPostGroup = 0;
 
     /**
      * @var integer
      *
      * @Column(name="total_time_logged_in", type="integer", nullable=false)
      */
-    public $totalTimeLoggedIn = 0;
+    private $totalTimeLoggedIn = 0;
 
     /**
      * @var string
      *
      * @Column(name="password_salt", type="string", length=255, nullable=false)
      */
-    public $passwordSalt = '';
+    private $passwordSalt = '';
 
     /**
      * @var string
      *
      * @Column(name="ignore_boards", type="text", nullable=false)
      */
-    public $ignoreBoards = '';
+    private $ignoreBoards = '';
 
     /**
-     * @var boolean
+     * @var integer
      *
-     * @Column(name="warning", type="boolean", nullable=false)
+     * @Column(name="warning", type="smallint", nullable=false)
      */
-    public $warning = 0;
+    private $warning = 0;
 
     /**
      * @var string
      *
      * @Column(name="passwd_flood", type="string", length=12, nullable=false)
      */
-    public $passwdFlood = '';
+    private $passwdFlood = '';
 
     /**
-     * @var boolean
+     * @var integer
      *
-     * @Column(name="pm_receive_from", type="boolean", nullable=false)
+     * @Column(name="pm_receive_from", type="smallint", nullable=false)
      */
-    public $pmReceiveFrom = 1;
+    private $pmReceiveFrom = 1;
 
     /**
      * @return int
@@ -461,6 +461,81 @@ class MemberEntity implements EntityInterface
     public function setId($id)
     {
         $this->idMember = intval($id);
+
+        return $this;
+    }
+
+    /**
+     * @param string $nickname
+     * @return MemberEntity
+     */
+    public function setNickname($nickname)
+    {
+        $this->memberName = strval($nickname);
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNickname()
+    {
+        return $this->memberName;
+    }
+
+    /**
+     * @param string $realName
+     * @return MemberEntity
+     */
+    public function setRealName($realName)
+    {
+        $this->realName = strval($realName);
+
+        return $this;
+    }
+
+    /**
+     * @param \DateTime $dateTime
+     * @return MemberEntity
+     */
+    public function setRegDate(\DateTime $dateTime)
+    {
+        $this->dateRegistered = $dateTime->getTimestamp();
+
+        return $this;
+    }
+
+    /**
+     * @param string $password
+     * @return MemberEntity
+     */
+    public function setPassword($password)
+    {
+        $this->passwd = sha1(strtolower($this->memberName) . $password);
+        $this->passwordSalt = substr(md5(mt_rand()), 0, 4);
+
+        return $this;
+    }
+
+    /**
+     * @param string $emailAddress
+     * @return MemberEntity
+     */
+    public function setEmailAddress($emailAddress)
+    {
+        $this->emailAddress = strval($emailAddress);
+
+        return $this;
+    }
+
+    /**
+     * @param string $avatarUrl
+     * @return MemberEntity
+     */
+    public function setAvatarUrl($avatarUrl)
+    {
+        $this->avatar = strval($avatarUrl);
 
         return $this;
     }
