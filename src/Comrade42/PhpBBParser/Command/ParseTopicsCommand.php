@@ -145,8 +145,11 @@ class ParseTopicsCommand extends ContainerAwareCommand
                         return is_numeric(substr($node->attr('id'), 1));
                     });
 
-                    $topic->setFirstMessageId(intval(substr($crawler->first()->attr('id'), 1)));
-                    $entityManager->persist($topic);
+                    if ($offset == 0)
+                    {
+                        $topic->setFirstMessageId(intval(substr($crawler->first()->attr('id'), 1)));
+                        $entityManager->persist($topic);
+                    }
 
                     $crawler->each(function (Crawler $node) use ($output, $entityManager, $entityBridge, $forumId, $topicId)
                     {
