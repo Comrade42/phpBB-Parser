@@ -36,4 +36,13 @@ interface ForumInterface extends EntityInterface
      * @return string
      */
     public function getTitle();
+
+    /**
+     * @param int $categoryId
+     * @param string $title
+     * @param string $description
+     * @param int $order
+     * @return $this
+     */
+    public function fill($categoryId, $title, $description, $order);
 }

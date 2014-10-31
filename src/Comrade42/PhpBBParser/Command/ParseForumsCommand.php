@@ -29,10 +29,12 @@ class ParseForumsCommand extends ContainerAwareCommand
         $dialogHelper = $this->getHelperSet()->get('dialog');
 
         $client = new Client();
-        $client->getCookieJar()->set(new Cookie(
-            $this->container->getParameter('fa_sid_cookie_name'),
-            $this->container->getParameter('fa_sid_cookie_value')
-        ));
+        $client->getCookieJar()->set(
+            new Cookie(
+                $this->container->getParameter('fa_sid_cookie_name'),
+                $this->container->getParameter('fa_sid_cookie_value')
+            )
+        );
 
         $url = rtrim($this->container->getParameter('forum_url'), '/') . '/forum';
         $output->write("<info>⇒ HTTP GET: {$url}</info>\t");
@@ -51,17 +53,17 @@ class ParseForumsCommand extends ContainerAwareCommand
                 $parsedName = $node->filter('ul.topiclist li.header dd.dterm h2')->text();
 
                 $entity = $entityBridge->getCategoryEntity($entityManager, $categoryId);
-                $categoryName = $entityBridge->getCategoryName($entity);
+                $categoryTitle = $entity->getTitle();
 
-                if (!empty($categoryName) && $categoryName != $parsedName && !$dialogHelper->askConfirmation(
+                if (!empty($categoryTitle) && $categoryTitle != $parsedName && !$dialogHelper->askConfirmation(
                         $output,
-                        "<question>Category name doesn't match for #{$categoryId} ({$categoryName} → {$parsedName}). Update category? [Y/n]:</question> "
-                    ))
-                {
+                        "<question>Category name doesn't match for #{$categoryId} ({$categoryTitle} → {$parsedName}). Update category? [Y/n]:</question> "
+                    )
+                ) {
                     return;
                 }
 
-                $entityBridge->fillCategoryEntity($entity, $parsedName, $index);
+                $entity->fill($parsedName, $index);
                 $entityManager->persist($entity);
 
                 $node->filter('ul.forums li.row dd.dterm')->each(
@@ -73,17 +75,17 @@ class ParseForumsCommand extends ContainerAwareCommand
                         $description = trim(substr($node->text(), strlen($parsedTitle)));
 
                         $entity = $entityBridge->getForumEntity($entityManager, $forumId);
-                        $forumTitle = $entityBridge->getForumTitle($entity);
+                        $forumTitle = $entity->getTitle();
 
                         if (!empty($forumTitle) && $forumTitle != $parsedTitle && !$dialogHelper->askConfirmation(
                                 $output,
                                 "<question>Forum name doesn't match for #{$forumId} ({$forumTitle} → {$parsedTitle}). Update forum? [Y/n]:</question> "
-                            ))
-                        {
+                            )
+                        ) {
                             return;
                         }
 
-                        $entityBridge->fillForumEntity($entity, $categoryId, $parsedTitle, $description, $index);
+                        $entity->fill($categoryId, $parsedTitle, $description, $index);
                         $entityManager->persist($entity);
                     }
                 );

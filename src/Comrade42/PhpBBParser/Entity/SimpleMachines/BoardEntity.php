@@ -226,4 +226,21 @@ class BoardEntity implements ForumInterface
 
         return $this;
     }
+
+    /**
+     * @param int $categoryId
+     * @param string $title
+     * @param string $description
+     * @param int $order
+     * @return $this
+     */
+    public function fill($categoryId, $title, $description, $order)
+    {
+        $this->idCat = intval($categoryId);
+        $this->name = strval($title);
+        $this->description = strval($description);
+        $this->boardOrder = intval($order);
+
+        return $this;
+    }
 }

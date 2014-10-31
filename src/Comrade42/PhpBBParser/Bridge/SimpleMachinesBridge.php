@@ -26,8 +26,7 @@ class SimpleMachinesBridge implements BridgeInterface
         /** @var \Comrade42\PhpBBParser\Entity\SimpleMachines\MemberEntity $entity */
         $entity = $entityManager->find('Comrade42\PhpBBParser\Entity\SimpleMachines\MemberEntity', $entityId);
 
-        if (empty($entity))
-        {
+        if (empty($entity)) {
             $entity = new MemberEntity();
             $entity->setId($entityId);
         }
@@ -45,8 +44,7 @@ class SimpleMachinesBridge implements BridgeInterface
         /** @var \Comrade42\PhpBBParser\Entity\SimpleMachines\CategoryEntity $entity */
         $entity = $entityManager->find('Comrade42\PhpBBParser\Entity\SimpleMachines\CategoryEntity', $entityId);
 
-        if (empty($entity))
-        {
+        if (empty($entity)) {
             $entity = new CategoryEntity();
             $entity->idCat = $entityId;
         }
@@ -64,8 +62,7 @@ class SimpleMachinesBridge implements BridgeInterface
         /** @var \Comrade42\PhpBBParser\Entity\SimpleMachines\BoardEntity $entity */
         $entity = $entityManager->find('Comrade42\PhpBBParser\Entity\SimpleMachines\BoardEntity', $entityId);
 
-        if (empty($entity))
-        {
+        if (empty($entity)) {
             $entity = new BoardEntity();
             $entity->idBoard = $entityId;
         }
@@ -83,8 +80,7 @@ class SimpleMachinesBridge implements BridgeInterface
         /** @var \Comrade42\PhpBBParser\Entity\SimpleMachines\TopicEntity $entity */
         $entity = $entityManager->find('Comrade42\PhpBBParser\Entity\SimpleMachines\TopicEntity', $entityId);
 
-        if (empty($entity))
-        {
+        if (empty($entity)) {
             $entity = new TopicEntity();
             $entity->setId($entityId);
         }
@@ -102,8 +98,7 @@ class SimpleMachinesBridge implements BridgeInterface
         /** @var \Comrade42\PhpBBParser\Entity\SimpleMachines\MessageEntity $entity */
         $entity = $entityManager->find('Comrade42\PhpBBParser\Entity\SimpleMachines\MessageEntity', $entityId);
 
-        if (empty($entity))
-        {
+        if (empty($entity)) {
             $entity = new MessageEntity();
             $entity->setId($entityId);
         }
@@ -122,62 +117,6 @@ class SimpleMachinesBridge implements BridgeInterface
 
     /**
      * @param EntityInterface $entity
-     * @param string $name
-     * @param int $order
-     */
-    public function fillCategoryEntity(EntityInterface $entity, $name, $order)
-    {
-        /** @var \Comrade42\PhpBBParser\Entity\SimpleMachines\CategoryEntity $entity */
-        $this->validateEntityClass($entity, 'Comrade42\PhpBBParser\Entity\SimpleMachines\CategoryEntity');
-
-        $entity->name       = $name;
-        $entity->catOrder   = $order;
-    }
-
-    /**
-     * @param EntityInterface $entity
-     * @param int $categoryId
-     * @param string $title
-     * @param string $description
-     * @param int $order
-     */
-    public function fillForumEntity(EntityInterface $entity, $categoryId, $title, $description, $order)
-    {
-        /** @var \Comrade42\PhpBBParser\Entity\SimpleMachines\BoardEntity $entity */
-        $this->validateEntityClass($entity, 'Comrade42\PhpBBParser\Entity\SimpleMachines\BoardEntity');
-
-        $entity->idCat          = $categoryId;
-        $entity->name           = $title;
-        $entity->description    = $description;
-        $entity->boardOrder     = $order;
-    }
-
-    /**
-     * @param EntityInterface $entity
-     * @return string
-     */
-    public function getCategoryName(EntityInterface $entity)
-    {
-        /** @var \Comrade42\PhpBBParser\Entity\SimpleMachines\CategoryEntity $entity */
-        $this->validateEntityClass($entity, 'Comrade42\PhpBBParser\Entity\SimpleMachines\CategoryEntity');
-
-        return $entity->name;
-    }
-
-    /**
-     * @param EntityInterface $entity
-     * @return string
-     */
-    public function getForumTitle(EntityInterface $entity)
-    {
-        /** @var \Comrade42\PhpBBParser\Entity\SimpleMachines\BoardEntity $entity */
-        $this->validateEntityClass($entity, 'Comrade42\PhpBBParser\Entity\SimpleMachines\BoardEntity');
-
-        return $entity->name;
-    }
-
-    /**
-     * @param EntityInterface $entity
      * @param string $expectedClass
      * @throws \InvalidArgumentException
      */
@@ -185,7 +124,9 @@ class SimpleMachinesBridge implements BridgeInterface
     {
         if (!$entity instanceof $expectedClass) {
             $actualClass = get_class($entity);
-            throw new \InvalidArgumentException("Wrong entity '{$actualClass}' specified! Instance of '{$expectedClass}' expected.");
+            throw new \InvalidArgumentException(
+                "Wrong entity '{$actualClass}' specified! Instance of '{$expectedClass}' expected."
+            );
         }
     }
 }

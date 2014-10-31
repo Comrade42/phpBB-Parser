@@ -2,7 +2,7 @@
 
 namespace Comrade42\PhpBBParser\Entity\SimpleMachines;
 
-use Comrade42\PhpBBParser\Entity\EntityInterface;
+use Comrade42\PhpBBParser\Entity\CategoryInterface;
 
 /**
  * Class CategoryEntity
@@ -10,7 +10,7 @@ use Comrade42\PhpBBParser\Entity\EntityInterface;
  * @Entity
  * @Table(name="categories")
  */
-class CategoryEntity implements EntityInterface
+class CategoryEntity implements CategoryInterface
 {
     /**
      * @var integer
@@ -56,6 +56,27 @@ class CategoryEntity implements EntityInterface
     public function setId($id)
     {
         $this->idCat = intval($id);
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     * @param int $order
+     * @return $this
+     */
+    public function fill($name, $order)
+    {
+        $this->name     = strval($name);
+        $this->catOrder = intval($order);
 
         return $this;
     }
