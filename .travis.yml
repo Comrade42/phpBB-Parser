@@ -13,4 +13,4 @@ install:
   - composer install --prefer-source --no-dev --no-interaction
 
 script:
-  - bin/phpunit --configuration app/phpunit.xml.dist --no-coverage
+  - phpunit --configuration app/phpunit.xml.dist --no-coverage
